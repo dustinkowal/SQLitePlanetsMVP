@@ -24,7 +24,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME="planet_constants.db";
     private static final int SCHEMA=1;
     static final String DB_TABLE_NAME="planets";
-    static final String DB_FIELD_TITLE ="title";
+    static final String DB_FIELD_ID ="_id";
+    static final String DB_FIELD_PLANETNAME ="title";
     static final String DB_FIELD_GRAVITY ="value";
 
     // Database creation sql statement
@@ -53,23 +54,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.beginTransaction();
             ContentValues cv=new ContentValues();
 
-            cv.put(DB_FIELD_TITLE, "Earth");
-            cv.put(DB_FIELD_GRAVITY, 9.80665f);
+            cv.put(DB_FIELD_PLANETNAME, "Earth");
+            cv.put(DB_FIELD_GRAVITY, 9.807f);
             db.insert(DB_TABLE_NAME, null, cv);
 
-            cv.put(DB_FIELD_TITLE, "Jupiter");
-            cv.put(DB_FIELD_GRAVITY, 23.12f);
+            cv.put(DB_FIELD_PLANETNAME, "Jupiter");
+            cv.put(DB_FIELD_GRAVITY, 24.8f);
             db.insert(DB_TABLE_NAME, null, cv);
 
-            cv.put(DB_FIELD_TITLE, "Mars");
+            cv.put(DB_FIELD_PLANETNAME, "Mars");
             cv.put(DB_FIELD_GRAVITY, 3.71f);
             db.insert(DB_TABLE_NAME, null, cv);
 
-            cv.put(DB_FIELD_TITLE, "Mercury");
+            cv.put(DB_FIELD_PLANETNAME, "Mercury");
             cv.put(DB_FIELD_GRAVITY, 3.7f);
             db.insert(DB_TABLE_NAME, null, cv);
 
-            cv.put(DB_FIELD_TITLE, "Venus");
+            cv.put(DB_FIELD_PLANETNAME, "Venus");
             cv.put(DB_FIELD_GRAVITY, 8.87f);
             db.insert(DB_TABLE_NAME, null, cv);
 
