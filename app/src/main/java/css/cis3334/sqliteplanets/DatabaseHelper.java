@@ -28,11 +28,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static final String DB_FIELD_PLANETNAME ="title";
     static final String DB_FIELD_GRAVITY ="value";
 
-    // Database creation sql statement
-    private static final String DATABASE_CREATE_SQL_STRING = "create table planets ( _id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, value REAL);";
+    private static DatabaseHelper singltonInstance;
 
+    // Database creation sql statement
+    private static final String DATABASE_CREATE_SQL_STRING = "create table "+ DB_TABLE_NAME
+            + " ( "+DB_FIELD_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "
+            +DB_FIELD_PLANETNAME +" TEXT, "
+            +DB_FIELD_GRAVITY+" REAL);";
+
+    // do not call this anymore
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, SCHEMA);
+    }
+
+    public static synchronized DatabaseHelper getInstance(Context context) {
+
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (singltonInstance == null) {
+            singltonInstance = new DatabaseHelper(context.getApplicationContext());
+        }
+        return singltonInstance;
     }
 
     @Override
@@ -45,7 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(DatabaseHelper.class.getName(),"Upgrading database from version " + oldVersion + " to "
              + newVersion + ", which will destroy all old data");
-        db.execSQL("DROP TABLE IF EXISTS planets");
+        db.execSQL("DROP TABLE IF EXISTS "+DB_TABLE_NAME);
         onCreate(db);
     }
 

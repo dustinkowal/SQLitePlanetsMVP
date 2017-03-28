@@ -23,7 +23,7 @@ public class PlanetTableDAO {
      * @param context - The activity calling this.
      */
     public PlanetTableDAO(Context context) {
-        dbHelper = new DatabaseHelper(context);
+        dbHelper = DatabaseHelper.getInstance(context);
     }
 
     /**
@@ -53,6 +53,7 @@ public class PlanetTableDAO {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.DB_FIELD_PLANETNAME, planetName);
         values.put(DatabaseHelper.DB_FIELD_GRAVITY, planetGravity);
+        //insert(String table, String nullColumnHack, ContentValues values)
         long insertId = database.insert(DatabaseHelper.DB_TABLE_NAME, null, values);
         Planet newPlanet = new Planet(insertId, planetName, planetGravity);
         return newPlanet;
@@ -66,6 +67,7 @@ public class PlanetTableDAO {
     public List<Planet> getAllPlanets() {
         List<Planet> planets = new ArrayList<Planet>();
         // query the database for all the fields of all the records in the planet table
+        // query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy, String limit)
         Cursor cursor = database.query(DatabaseHelper.DB_TABLE_NAME,
                 null, null, null, null, null, null);
         // loop through the cursor converting each row into a planet object

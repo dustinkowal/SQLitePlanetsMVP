@@ -39,4 +39,11 @@ public class MainActivity extends AppCompatActivity {
         planetDB.deletePlanet(mars);
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        planetDB.close();
+    }
+
 }
